@@ -1,17 +1,20 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { RecipeService } from '../../services/recipe.service';
 import { Recipe } from '../../models/recipe.model';
 
 @Component({
   selector: 'app-recipe-list',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './recipe-list.component.html',
   styleUrl: './recipe-list.component.css',
 })
 export class RecipeListComponent implements OnInit {
   receitas: Recipe[] = [];
+
+  termoBusca: string = '';
 
   constructor(private recipeService: RecipeService) {}
 
@@ -24,5 +27,17 @@ export class RecipeListComponent implements OnInit {
         console.error('Erro ao carregar receitas:', err);
       },
     });
+  }
+
+  get receitasFiltradas(): Recipe[] {
+    if (!this.termoBusca || !this.termoBusca.trim()) {
+      return this.receitas;
+    }
+
+    const termoFormatado = this.termoBusca.toLowerCase().trim();
+
+    return this.receitas.filter((receita) =>
+      receita.nome.toLowerCase().includes(termoFormatado)
+    );
   }
 }
