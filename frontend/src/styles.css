@@ -1,0 +1,146 @@
+/* DESIGN TOKENS (Variáveis Globais do Projeto RecipeBook) */
+:root {
+  /* Cores de Marca e Identidade */
+  --primary-color: #e65c00;
+  --primary-hover: #cc5200;
+  --background-color: #fafafa;
+  --surface-color: #ffffff;
+  
+  /* Cores de Texto e Hierarquia */
+  --text-main: #1f2937;
+  --text-muted: #4b5563;
+  --text-light: #9ca3af;
+  
+  /* Feedback Semântico */
+  --color-error: #dc2626;
+  --color-success: #16a34a;
+  --border-color: #e5e7eb;
+  
+  /* Tokens de Categorias (Badges do Enum) */
+  --bg-doce: #fce7f3;
+  --text-doce: #9d174d;
+  --bg-salgado: #fef3c7;
+  --text-salgado: #92400e;
+  --bg-bebida: #e0f2fe;
+  --text-bebida: #0369a1;
+  --bg-sobremesa: #e0e7ff;
+  --text-sobremesa: #3730a3;
+
+  /* Estrutura, Cantos e Sombras */
+  --radius-main: 12px;
+  --radius-badge: 9999px;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.1);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+/* RESET DE LAYOUT GLOBAL */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background-color: var(--background-color);
+  color: var(--text-main);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* CLASSES UTILITÁRIAS E REUTILIZÁVEIS (Global Utility Classes) */
+
+/* Layout Base de Páginas */
+.main-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2.5rem 1.25rem;
+}
+
+.page-header {
+  margin-bottom: 3.5rem;
+  text-align: center;
+}
+
+.page-header h1 {
+  font-size: 2.75rem;
+  font-weight: 700;
+  color: var(--text-main);
+  letter-spacing: -0.025em;
+  margin-bottom: 0.5rem;
+}
+
+.page-header p {
+  color: var(--text-muted);
+  font-size: 1.1rem;
+}
+
+/* Componente de Badge Compartilhado */
+.card-badge {
+  display: inline-block;
+  padding: 0.25rem 0.85rem;
+  border-radius: var(--radius-badge);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Mapeamento Dinâmico de Classes do Enum */
+.card-badge.doce { background-color: var(--bg-doce); color: var(--text-doce); }
+.card-badge.salgado { background-color: var(--bg-salgado); color: var(--text-salgado); }
+.card-badge.bebida { background-color: var(--bg-bebida); color: var(--text-bebida); }
+.card-badge.sobremesa { background-color: var(--bg-sobremesa); color: var(--text-sobremesa); }
+
+/* Botões Padronizados do Sistema */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 1.75rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  border-radius: var(--radius-main);
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  text-decoration: none;
+}
+
+.btn-primary {
+  background-color: var(--primary-color);
+  color: #ffffff;
+  box-shadow: var(--shadow-sm);
+}
+
+.btn-primary:hover:not(:disabled) {
+  background-color: var(--primary-hover);
+  transform: translateY(-1px);
+}
+
+.btn-secondary {
+  background-color: transparent;
+  border-color: var(--border-color);
+  color: var(--text-muted);
+}
+
+.btn-secondary:hover:not(:disabled) {
+  background-color: #f3f4f6;
+  color: var(--text-main);
+}
+
+.btn:disabled {
+  background-color: #e5e7eb;
+  color: var(--text-light);
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
+}
+
+/* Mensagens de Erro de Formulário */
+.error-message {
+  color: var(--color-error);
+  font-size: 0.825rem;
+  margin-top: 0.35rem;
+  font-weight: 500;
+}
