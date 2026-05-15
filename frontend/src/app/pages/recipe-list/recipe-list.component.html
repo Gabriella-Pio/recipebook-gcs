@@ -1,0 +1,29 @@
+<div class="main-container">
+  <header class="page-header">
+    <h1>RecipeBook</h1>
+    <p>Seu gerenciador moderno de receitas culinárias</p>
+  </header>
+
+  @if (receitas.length === 0) {
+  <div class="empty-state">
+    <p>Nenhuma receita cadastrada</p>
+  </div>
+  } @else {
+  <div class="recipe-grid">
+    @for (recipe of receitas; track recipe.id) {
+    <div class="recipe-card">
+      <div class="card-badge" [className]="'card-badge ' + recipe.categoria.toLowerCase()">
+        {{ recipe.categoria }}
+      </div>
+      <div class="card-content">
+        <h2 class="card-title">{{ recipe.nome }}</h2>
+        <div class="card-info">
+          <span class="time-icon">⏱</span> {{ recipe.tempoPreparo }} min
+        </div>
+        <a class="card-link">Visualizar Detalhes →</a>
+      </div>
+    </div>
+    }
+  </div>
+  }
+</div>
