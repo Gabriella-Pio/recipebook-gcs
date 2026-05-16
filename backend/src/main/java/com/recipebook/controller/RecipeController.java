@@ -2,6 +2,11 @@ package com.recipebook.controller;
 
 import com.recipebook.entity.Recipe;
 import com.recipebook.repository.RecipeRepository;
+
+import jakarta.validation.Valid;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
@@ -21,5 +26,11 @@ public class RecipeController {
       return recipeRepository.findByNomeContainingIgnoreCaseOrderByDataCadastroDesc(nome);
     }
     return recipeRepository.findAllByOrderByDataCadastroDesc();
+  }
+
+  @PostMapping
+  public ResponseEntity<Recipe> salvar(@Valid @RequestBody Recipe recipe) {
+    Recipe novaReceita = recipeRepository.save(recipe);
+    return ResponseEntity.status(HttpStatus.CREATED).body(novaReceita);
   }
 }

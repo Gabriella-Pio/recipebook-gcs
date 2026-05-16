@@ -1,12 +1,4 @@
-/* Toolbar — alinha o botão primário */
-.list-toolbar {
-  display: flex;
-  justify-content: flex-end;
-  width: 100%;
-  max-width: 850px;
-  margin: 0 auto 1.5rem auto;
-  box-sizing: border-box;
-}
+
 
 /* Grid de receitas */
 .recipe-grid {
@@ -110,37 +102,12 @@
 /* Card divider */
 .meta-divider { display: inline-block; width: 1px; height: 14px; background-color: var(--border-color); flex-shrink: 0; }
 
-.card-action-btn {
-  background: none;
-  border: none;
-  color: var(--primary-color);
-  font-size: 0.875rem;
-  font-weight: 700;
-  font-family: inherit;
-  cursor: pointer;
-  padding: 0;
-  white-space: nowrap;
-  transition: color 0.15s ease;
-}
-
-.card-action-btn:hover {
-  color: var(--primary-hover);
-}
-
 @media (max-width: 640px) {
-  .list-toolbar {
-    justify-content: center;
-  }
-
   .card-content {
     padding: 1.25rem;
   }
 
   .card-title {
     font-size: 1.2rem;
-  }
-
-  .card-action-btn {
-    display: none; /* em mobile o card inteiro é clicável */
   }
 }

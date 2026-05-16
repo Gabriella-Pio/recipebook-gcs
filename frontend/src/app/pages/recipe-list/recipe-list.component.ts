@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { RouterLink } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 import { RecipeService } from '../../services/recipe.service';
 import { Recipe } from '../../models/recipe.model';
@@ -8,7 +9,7 @@ import { Recipe } from '../../models/recipe.model';
 @Component({
   selector: 'app-recipe-list',
   standalone: true,
-  imports: [CommonModule, FormsModule, MatIconModule],
+  imports: [CommonModule, FormsModule, MatIconModule, RouterLink],
   templateUrl: './recipe-list.component.html',
   styleUrl: './recipe-list.component.css',
 })
@@ -37,7 +38,7 @@ export class RecipeListComponent implements OnInit {
     const termoFormatado = this.termoBusca.toLowerCase().trim();
 
     return this.receitas.filter((receita) =>
-      receita.nome.toLowerCase().includes(termoFormatado)
+      receita.nome.toLowerCase().includes(termoFormatado),
     );
   }
 }
