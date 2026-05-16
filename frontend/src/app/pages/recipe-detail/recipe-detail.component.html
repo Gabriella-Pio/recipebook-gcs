@@ -41,7 +41,7 @@
         </div>
       </div>
     </header>
-    
+
     <!-- Metadados -->
     <section class="recipe-metadata">
       <div class="metadata-card">
@@ -97,7 +97,7 @@
 
     <!-- Botões de Exclusão -->
     <div class="toolbar-end">
-      <button class="btn-tertiary btn-danger" aria-label="Excluir receita">
+      <button (click)="confirmarExclusao()" class="btn-tertiary btn-danger" aria-label="Excluir receita">
         <mat-icon>delete</mat-icon>
         Excluir
       </button>
