@@ -16,7 +16,10 @@ public class RecipeController {
   }
 
   @GetMapping
-  public List<Recipe> listarTodas() {
+  public List<Recipe> listarTodas(@RequestParam(required = false) String nome) {
+    if (nome != null && !nome.trim().isEmpty()) {
+      return recipeRepository.findByNomeContainingIgnoreCaseOrderByDataCadastroDesc(nome);
+    }
     return recipeRepository.findAllByOrderByDataCadastroDesc();
   }
 }

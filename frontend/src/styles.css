@@ -1,21 +1,24 @@
-/* DESIGN TOKENS (Variáveis Globais do Projeto RecipeBook) */
+/* FONTE — importar antes de tudo */
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,700;9..144,800&display=swap');
+
+/* Variáveis Globais do Projeto */
 :root {
   /* Cores de Marca e Identidade */
   --primary-color: #e65c00;
   --primary-hover: #cc5200;
-  --background-color: #fafafa;
+  --background-color: #fdf8f3;
   --surface-color: #ffffff;
-  
+
   /* Cores de Texto e Hierarquia */
   --text-main: #1f2937;
   --text-muted: #4b5563;
   --text-light: #9ca3af;
-  
+
   /* Feedback Semântico */
   --color-error: #dc2626;
   --color-success: #16a34a;
   --border-color: #e5e7eb;
-  
+
   /* Tokens de Categorias (Badges do Enum) */
   --bg-doce: #fce7f3;
   --text-doce: #9d174d;
@@ -29,11 +32,14 @@
   /* Estrutura, Cantos e Sombras */
   --radius-main: 12px;
   --radius-badge: 9999px;
-  --shadow-sm: 0 1px 3px rgba(0,0,0,0.1);
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
   --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+
+  /* Fonte Display (títulos) */
+  --font-display: 'Fraunces', Georgia, serif;
 }
 
-/* RESET DE LAYOUT GLOBAL */
+/* Reset de layout global */
 * {
   box-sizing: border-box;
   margin: 0;
@@ -48,99 +54,241 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* CLASSES UTILITÁRIAS E REUTILIZÁVEIS (Global Utility Classes) */
+/* Estilos Material Icons */
+mat-icon {
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 1.5rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1em;
+  height: 1em;
+  line-height: 1.2;  /* ← aumentar espaço vertical */
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  letter-spacing: normal;
+  text-transform: none;
+}
 
-/* Layout Base de Páginas */
+/* Ícone dentro de botões — reduzir tamanho */
+button mat-icon,
+.btn-primary mat-icon {
+  font-size: 1.25rem;
+  width: 1em;
+  height: 1em;
+}
+
+/* Ícone de busca — adaptado para o input */
+.search-input-icon {
+  font-size: 1.5rem;
+  width: 1em;
+  height: 1em;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 5rem 2rem;
+  width: 100%;
+  max-width: 850px;
+  margin: 0 auto;
+  background: var(--surface-color);
+  border-radius: var(--radius-main);
+  border: 1.5px dashed var(--border-color);
+  box-sizing: border-box;
+}
+
+.empty-icon {
+  margin: 0 auto 1rem;
+  opacity: 0.45;
+}
+
+.empty-title {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--text-main);
+  margin-bottom: 0.5rem;
+  letter-spacing: -0.02em;
+}
+
+.empty-desc {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  margin-bottom: 1.75rem;
+  line-height: 1.6;
+}
+
+/* Botão Primário — padrão para todo o projeto */
+.btn-primary,
+.empty-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background-color: var(--primary-color);
+  color: #ffffff;
+  border: none;
+  border-radius: var(--radius-main);
+  padding: 0.7rem 1.5rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  transition: background-color 0.15s ease, transform 0.15s ease;
+  box-shadow: var(--shadow-sm);
+}
+
+.btn-primary:hover,
+.empty-cta:hover {
+  background-color: var(--primary-hover);
+  transform: translateY(-1px);
+}
+
+.hero-section {
+  background-color: #fffbf7;
+  border: 1px solid #ffebd9;
+  border-radius: 24px;
+  padding: 3.5rem 2rem;
+  margin-bottom: 2.5rem;
+  box-shadow: var(--shadow-sm);
+  width: 100%;
+  max-width: 850px;
+  margin-left: auto;
+  margin-right: auto;
+  box-sizing: border-box;
+}
+
+.hero-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2.25rem;
+  width: 100%;
+}
+
+.hero-text {
+  text-align: center;
+}
+
+.hero-title {
+  font-family: var(--font-display);
+  font-size: 2.75rem;
+  font-weight: 800;
+  color: var(--text-main);
+  letter-spacing: -0.035em;
+  margin-bottom: 0.35rem;
+  line-height: 1.1;
+}
+
+.hero-title span {
+  color: var(--primary-color);
+}
+
+.hero-subtitle {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+}
+
+.search-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  width: 100%;
+}
+
+.search-label {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--text-main);
+  letter-spacing: -0.01em;
+}
+
+.search-container {
+  position: relative;
+  width: 100%;
+  max-width: 500px;
+}
+
+.search-input-icon {
+  position: absolute;
+  left: 1.25rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-light);
+  pointer-events: none;
+}
+
+.search-input {
+  width: 100%;
+  padding: 0.85rem 2.75rem 0.85rem 3rem;
+  font-size: 0.95rem;
+  font-family: inherit;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-main);
+  background: var(--surface-color);
+  color: var(--text-main);
+  outline: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.search-input:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(230, 92, 0, 0.08);
+}
+
+.search-input::placeholder {
+  color: var(--text-light);
+}
+
+.clear-btn {
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: var(--text-light);
+  cursor: pointer;
+  font-size: 0.8rem;
+  padding: 0.25rem;
+  line-height: 1;
+  transition: color 0.15s ease;
+}
+
+.clear-btn:hover {
+  color: var(--text-muted);
+}
+
+/* Responsividade para componentes globais */
+@media (max-width: 640px) {
+  .hero-section {
+    padding: 2.5rem 1.25rem;
+    border-radius: 16px;
+  }
+
+  .hero-title {
+    font-size: 2.1rem;
+  }
+
+  .empty-state {
+    padding: 3rem 1.25rem;
+  }
+}
+
+/* Layout base */
 .main-container {
   max-width: 1200px;
   margin: 0 auto;
   padding: 2.5rem 1.25rem;
 }
 
-.page-header {
-  margin-bottom: 3.5rem;
-  text-align: center;
-}
-
-.page-header h1 {
-  font-size: 2.75rem;
-  font-weight: 700;
-  color: var(--text-main);
-  letter-spacing: -0.025em;
-  margin-bottom: 0.5rem;
-}
-
-.page-header p {
-  color: var(--text-muted);
-  font-size: 1.1rem;
-}
-
-/* Componente de Badge Compartilhado */
-.card-badge {
-  display: inline-block;
-  padding: 0.25rem 0.85rem;
-  border-radius: var(--radius-badge);
-  font-size: 0.75rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-}
-
-/* Mapeamento Dinâmico de Classes do Enum */
-.card-badge.doce { background-color: var(--bg-doce); color: var(--text-doce); }
-.card-badge.salgado { background-color: var(--bg-salgado); color: var(--text-salgado); }
-.card-badge.bebida { background-color: var(--bg-bebida); color: var(--text-bebida); }
-.card-badge.sobremesa { background-color: var(--bg-sobremesa); color: var(--text-sobremesa); }
-
-/* Botões Padronizados do Sistema */
-.btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0.75rem 1.75rem;
-  font-size: 0.95rem;
-  font-weight: 600;
-  border-radius: var(--radius-main);
-  border: 1px solid transparent;
-  cursor: pointer;
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-  text-decoration: none;
-}
-
-.btn-primary {
-  background-color: var(--primary-color);
-  color: #ffffff;
-  box-shadow: var(--shadow-sm);
-}
-
-.btn-primary:hover:not(:disabled) {
-  background-color: var(--primary-hover);
-  transform: translateY(-1px);
-}
-
-.btn-secondary {
-  background-color: transparent;
-  border-color: var(--border-color);
-  color: var(--text-muted);
-}
-
-.btn-secondary:hover:not(:disabled) {
-  background-color: #f3f4f6;
-  color: var(--text-main);
-}
-
-.btn:disabled {
-  background-color: #e5e7eb;
-  color: var(--text-light);
-  cursor: not-allowed;
-  box-shadow: none;
-  transform: none;
-}
-
-/* Mensagens de Erro de Formulário */
 .error-message {
   color: var(--color-error);
   font-size: 0.825rem;
   margin-top: 0.35rem;
   font-weight: 500;
 }
+
+html, body { height: 100%; }
