@@ -40,4 +40,14 @@ public class RecipeController {
         .map(recipe -> ResponseEntity.ok().body(recipe))
         .orElse(ResponseEntity.notFound().build());
   }
+
+  @DeleteMapping("/{id}")
+  public ResponseEntity<Void> excluirReceita(@PathVariable Long id) {
+    return recipeRepository.findById(id)
+        .map(recipe -> {
+          recipeRepository.delete(recipe);
+          return ResponseEntity.noContent().<Void>build();
+        })
+        .orElse(ResponseEntity.notFound().build());
+  }
 }
