@@ -25,4 +25,8 @@ export class RecipeService {
   buscarPorId(id: number): Observable<Recipe> {
     return this.http.get<Recipe>(`${this.apiUrl}/${id}`);
   }
+
+  excluir(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+  }
 }
