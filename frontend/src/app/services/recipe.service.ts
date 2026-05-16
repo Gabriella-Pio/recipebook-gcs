@@ -21,4 +21,8 @@ export class RecipeService {
   salvar(recipe: Recipe): Observable<Recipe> {
     return this.http.post<Recipe>(this.apiUrl, recipe);
   }
+
+  buscarPorId(id: number): Observable<Recipe> {
+    return this.http.get<Recipe>(`${this.apiUrl}/${id}`);
+  }
 }

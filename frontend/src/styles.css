@@ -166,6 +166,16 @@ button mat-icon,
   border-color: var(--text-main);
 }
 
+/* Delete/Danger Button */
+.btn-danger {
+  color: var(--color-error) !important;
+  border-color: var(--color-error) !important;
+}
+
+.btn-danger:hover {
+  background-color: rgba(220, 38, 38, 0.08) !important;
+}
+
 /* Toolbar — alinha o botão */
 .toolbar-end {
   display: flex;
@@ -366,6 +376,105 @@ button mat-icon,
 .success-snackbar .mdc-snackbar__label {
   color: white !important;
   font-weight: 600;
+}
+
+/* Formulário - Grupos de campos */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 1.75rem;
+}
+
+/* Botões de Ação - Padrão para formulários */
+.form-actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 2.5rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border-color);
+}
+
+.form-actions .btn-primary,
+.form-actions .btn-secondary {
+  flex: 1;
+  justify-content: center;
+}
+
+.form-actions .btn-primary:disabled {
+  background-color: #e5e7eb;
+  color: var(--text-light);
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* Seções de Conteúdo */
+.section-title {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-main);
+  margin-bottom: 1.5rem;
+  letter-spacing: -0.02em;
+}
+
+/* Lista de Ingredientes */
+.ingredients-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.ingredient-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 0;
+  color: var(--text-main);
+  font-size: 0.95rem;
+}
+
+.ingredient-item mat-icon {
+  color: var(--color-success);
+  flex-shrink: 0;
+  font-size: 1.25rem;
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+/* Loading State */
+.loading-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  padding: 5rem 2rem;
+  width: 100%;
+  max-width: 850px;
+  margin: 0 auto;
+}
+
+.spinner {
+  width: 3rem;
+  height: 3rem;
+  border: 3px solid var(--border-color);
+  border-top-color: var(--primary-color);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.loading-state p {
+  font-size: 0.95rem;
+  color: var(--text-muted);
 }
 
 html, body { height: 100%; }

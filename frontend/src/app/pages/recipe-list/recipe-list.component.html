@@ -85,11 +85,10 @@
             </span>
           </div>
 
-          <button class="btn-tertiary" [attr.aria-label]="'Ver detalhes de ' + recipe.nome">
-            <!-- Ver detalhes → -->
+          <a [routerLink]="['/receita', recipe.id]" class="btn-tertiary" [attr.aria-label]="'Ver detalhes de ' + recipe.nome">
             Ver detalhes
             <mat-icon>arrow_forward</mat-icon>
-          </button>
+          </a>
 
         </div>
       </div>

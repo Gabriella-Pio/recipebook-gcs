@@ -33,4 +33,11 @@ public class RecipeController {
     Recipe novaReceita = recipeRepository.save(recipe);
     return ResponseEntity.status(HttpStatus.CREATED).body(novaReceita);
   }
+
+  @GetMapping("/{id}")
+  public ResponseEntity<Recipe> buscarPorId(@PathVariable Long id) {
+    return recipeRepository.findById(id)
+        .map(recipe -> ResponseEntity.ok().body(recipe))
+        .orElse(ResponseEntity.notFound().build());
+  }
 }
