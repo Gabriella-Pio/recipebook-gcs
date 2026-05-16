@@ -1,26 +1,24 @@
 <div class="main-container">
 
-  <div class="list-toolbar">
-    <button class="btn-primary">
+  <div class="toolbar-end">
+    <a routerLink="/criar" class="btn-primary">
       <mat-icon>add</mat-icon>
       Nova Receita
-    </button>
+    </a>
   </div>
 
   <header class="hero-section">
     <div class="hero-content">
 
       <div class="hero-text">
-        <!-- "Recipe" em laranja, "Book" em escuro — leitura natural da marca -->
-        <h1 class="hero-title"><span>Recipe</span>Book</h1>
+        <h1 class="hero-title">Livro de <span>Receitas</span></h1>
         <p class="hero-subtitle">Organize, busque e descubra suas receitas.</p>
       </div>
 
       <div class="search-block">
-        <label for="search-input" class="search-label">O que vamos cozinhar hoje?</label>
+        <label for="input-primary" class="search-label">O que vamos cozinhar hoje?</label>
         <div class="search-container">
-          <mat-icon class="search-input-icon">search</mat-icon>
-          <input id="search-input" type="text" placeholder="Buscar pelo nome da receita..." [(ngModel)]="termoBusca" class="search-input" autocomplete="off" />
+          <input id="form-input" type="text" placeholder="Buscar pelo nome da receita..." [(ngModel)]="termoBusca" class="form-input" autocomplete="off" />
           @if (termoBusca) {
           <button class="clear-btn" (click)="termoBusca = ''" aria-label="Limpar busca">
             <mat-icon>close</mat-icon>
@@ -37,7 +35,7 @@
     <mat-icon class="empty-icon">library_books</mat-icon>
     <p class="empty-title">Nenhuma receita ainda</p>
     <p class="empty-desc">Seu livro de receitas está em branco.<br>Que tal adicionar a primeira?</p>
-    <button class="empty-cta">
+    <button class="btn-primary">
       <mat-icon>add</mat-icon>
       Criar primeira receita
     </button>
@@ -87,8 +85,10 @@
             </span>
           </div>
 
-          <button class="card-action-btn" [attr.aria-label]="'Ver detalhes de ' + recipe.nome">
-            Ver detalhes →
+          <button class="btn-tertiary" [attr.aria-label]="'Ver detalhes de ' + recipe.nome">
+            <!-- Ver detalhes → -->
+            Ver detalhes
+            <mat-icon>arrow_forward</mat-icon>
           </button>
 
         </div>
