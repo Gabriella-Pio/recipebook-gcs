@@ -1,0 +1,76 @@
+# .github/workflows/ci.yml
+# GCS — Pilar 4: Auditoria automatizada via Integração Contínua
+# Nome exibido na aba Actions e nos checks do PR
+name: CI - RecipeBook
+
+# ── GATILHOS ──────────────────────────────────────────────
+# Define QUANDO o workflow é acionado
+on:
+  push:
+    branches:
+      - develop # a cada commit enviado ao develop
+      - 'feature/**' # a cada commit em qualquer feature/...
+      - 'hotfix/**' # a cada commit em qualquer hotfix/...
+  pull_request:
+    branches:
+      - main # quando um PR tenta entrar no main
+      - develop # quando um PR tenta entrar no develop
+
+# ── JOBS ───────────────────────────────────────────────────
+# Jobs rodam em PARALELO por padrão
+jobs:
+
+  # ── JOB 1: Backend Spring Boot ──────────────────────────
+  build-backend:
+    name: "Build Backend (Spring Boot + Java 17)"
+    # O GitHub provisiona uma VM Ubuntu limpa para este job
+    runs-on: ubuntu-latest
+
+    steps:
+      # PASSO 1: Baixar o código do branch atual
+      - name: "Checkout do codigo"
+        uses: actions/checkout@v4
+
+      # PASSO 2: Instalar o Java 17 na VM
+      # cache: maven salva as dependencias entre runs
+      - name: "Configurar Java 17"
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: maven
+
+      # PASSO 3: Compilar e rodar testes
+      # mvn verify: compila + testa + valida o artefato
+      # --no-transfer-progress: reduz o log de download
+      - name: "Build e testes com Maven"
+        run: cd backend && mvn verify --no-transfer-progress
+
+  # ── JOB 2: Frontend Angular ─────────────────────────────
+  build-frontend:
+    name: "Build Frontend (Angular + Node 20)"
+    runs-on: ubuntu-latest
+
+    steps:
+      # PASSO 1: Baixar o código
+      - name: "Checkout do codigo"
+        uses: actions/checkout@v4
+
+      # PASSO 2: Instalar o Node.js 20
+      # cache: npm acelera a instalação de dependências
+      - name: "Configurar Node.js 20"
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: frontend/package-lock.json
+
+      # PASSO 3: Instalar dependências de forma determinística
+      # npm ci: usa package-lock.json (mais seguro que npm install em CI)
+      - name: "Instalar dependencias (npm ci)"
+        run: cd frontend && npm ci
+
+      # PASSO 4: Compilar o Angular para produção
+      # Falha se houver erro de TypeScript ou importação errada
+      - name: "Build Angular (prod)"
+        run: cd frontend && npm run build
