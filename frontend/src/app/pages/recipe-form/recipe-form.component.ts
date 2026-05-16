@@ -3,13 +3,14 @@ import { FormBuilder, FormGroup, Validators, FormArray, ReactiveFormsModule } fr
 import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { RecipeService } from '../../services/recipe.service';
 import { Categoria } from '../../models/recipe.model';
 
 @Component({
   selector: 'app-recipe-form',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, MatIconModule, RouterLink],
+  imports: [CommonModule, ReactiveFormsModule, MatIconModule, MatSnackBarModule, RouterLink],
   templateUrl: './recipe-form.component.html',
   styleUrl: './recipe-form.component.css'
 })
@@ -21,7 +22,8 @@ export class RecipeFormComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private recipeService: RecipeService,
-    private router: Router
+    private router: Router,
+    private snackBar: MatSnackBar
   ) {}
 
   ngOnInit(): void {
@@ -77,7 +79,16 @@ export class RecipeFormComponent implements OnInit {
 
     this.recipeService.salvar(recipe).subscribe({
       next: () => {
-        this.router.navigate(['/']);
+        this.snackBar.open('Receita criada com sucesso!', 'Fechar', {
+          duration: 5000,
+          horizontalPosition: 'end',
+          verticalPosition: 'bottom',
+          panelClass: ['success-snackbar']
+        });
+        
+        setTimeout(() => {
+          this.router.navigate(['/']);
+        }, 500);
       },
       error: (error) => {
         console.error('Erro ao salvar receita:', error);

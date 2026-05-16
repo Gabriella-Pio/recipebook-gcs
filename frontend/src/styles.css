@@ -356,5 +356,16 @@ button mat-icon,
 .form-required {
   color: var(--color-error);
 }
+  
+/* Snackbar de sucesso */
+.success-snackbar {
+  background-color: var(--color-success) !important;
+  color: white !important;
+}
+
+.success-snackbar .mdc-snackbar__label {
+  color: white !important;
+  font-weight: 600;
+}
 
 html, body { height: 100%; }
