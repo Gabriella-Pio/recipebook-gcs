@@ -1,19 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { MatIconModule } from '@angular/material/icon';
 import { RecipeService } from '../../services/recipe.service';
 import { Recipe } from '../../models/recipe.model';
 
 @Component({
   selector: 'app-recipe-list',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, MatIconModule],
   templateUrl: './recipe-list.component.html',
   styleUrl: './recipe-list.component.css',
 })
 export class RecipeListComponent implements OnInit {
   receitas: Recipe[] = [];
-
   termoBusca: string = '';
 
   constructor(private recipeService: RecipeService) {}
