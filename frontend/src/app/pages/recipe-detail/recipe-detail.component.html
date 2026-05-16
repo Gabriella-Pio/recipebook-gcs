@@ -1,1 +1,109 @@
-<p>recipe-detail works!</p>
+<div class="main-container">
+
+  <!-- Toolbar -->
+  <div class="toolbar-start">
+    <button (click)="voltar()" class="btn-primary" aria-label="Voltar para listagem">
+      <mat-icon>arrow_back</mat-icon>
+      Voltar
+    </button>
+  </div>
+
+  <!-- Carregando -->
+  @if (loading) {
+  <div class="loading-state">
+    <div class="spinner"></div>
+    <p>Carregando receita...</p>
+  </div>
+  }
+
+  <!-- Erro -->
+  @if (error && !loading) {
+  <div class="empty-state">
+    <mat-icon class="empty-icon">error_outline</mat-icon>
+    <p class="empty-title">{{ error }}</p>
+    <p class="empty-desc">Desculpe, não conseguimos carregar a receita.</p>
+  </div>
+  }
+
+  <!-- Conteúdo da Receita -->
+  @if (recipe && !loading && !error) {
+  <article class="recipe-detail">
+
+    <!-- Hero Section -->
+    <header class="hero-section recipe-hero">
+      <div class="hero-content">
+        <div class="hero-text">
+          <span class="recipe-badge" [className]="'recipe-badge ' + recipe.categoria.toLowerCase()">
+            {{ recipe.categoria }}
+          </span>
+          <h1 class="hero-title"><span>{{ recipe.nome }}</span></h1>
+          <p class="hero-subtitle">Visualizando os detalhes desta receita catalogada.</p>
+        </div>
+      </div>
+    </header>
+    
+    <!-- Metadados -->
+    <section class="recipe-metadata">
+      <div class="metadata-card">
+        <mat-icon>schedule</mat-icon>
+        <div class="metadata-content">
+          <span class="metadata-label">Tempo de Preparo</span>
+          <span class="metadata-value">{{ recipe.tempoPreparo }} minutos</span>
+        </div>
+      </div>
+
+      <div class="metadata-card">
+        <mat-icon>people</mat-icon>
+        <div class="metadata-content">
+          <span class="metadata-label">Porções</span>
+          <span class="metadata-value">{{ recipe.porcoes }}</span>
+        </div>
+      </div>
+
+      <div class="metadata-card">
+        <mat-icon>calendar_today</mat-icon>
+        <div class="metadata-content">
+          <span class="metadata-label">Data de Cadastro</span>
+          <span class="metadata-value">
+            {{ recipe.dataCadastro ? (recipe.dataCadastro | date: 'dd/MM/yyyy') : 'N/A' }}
+          </span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Conteúdo: Ingredientes + Modo de Preparo -->
+    <div class="recipe-content">
+      <!-- Ingredientes -->
+      <section class="recipe-section ingredients-section">
+        <h2 class="section-title">Ingredientes</h2>
+        <ul class="ingredients-list">
+          @for (ingrediente of recipe.ingredientes; track $index) {
+          <li class="ingredient-item">
+            <mat-icon>check_circle</mat-icon>
+            <span>{{ ingrediente }}</span>
+          </li>
+          }
+        </ul>
+      </section>
+
+      <!-- Modo de Preparo -->
+      <section class="recipe-section preparation-section">
+        <h2 class="section-title">Modo de Preparo</h2>
+        <div class="preparation-text">
+          {{ recipe.modoPreparo }}
+        </div>
+      </section>
+    </div>
+
+    <!-- Botões de Exclusão -->
+    <div class="toolbar-end">
+      <button class="btn-tertiary btn-danger" aria-label="Excluir receita">
+        <mat-icon>delete</mat-icon>
+        Excluir
+      </button>
+    </div>
+
+  </article>
+  }
+
+</div>
