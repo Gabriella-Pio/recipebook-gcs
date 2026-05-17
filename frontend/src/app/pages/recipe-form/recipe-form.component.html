@@ -1,0 +1,127 @@
+<div class="main-container">
+
+  <div class="toolbar-start">
+    <a routerLink="/" class="btn-primary">
+      <mat-icon>arrow_back</mat-icon>
+      Voltar
+    </a>
+  </div>
+
+  <header class="hero-section">
+    <div class="hero-content">
+      <div class="hero-text">
+        <h1 class="hero-title">Cadastrar <span>Nova Receita</span></h1>
+        <p class="hero-subtitle">Adicione os detalhes da sua receita.</p>
+      </div>
+    </div>
+  </header>
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="recipe-form">
+
+    <!-- Nome da Receita -->
+    <div class="form-group">
+      <label for="nome" class="form-label">Nome da Receita <span class="form-required">*</span></label>
+      <input id="nome" type="text" formControlName="nome" placeholder="Ex: Bolo de Chocolate" class="form-input" [class.is-invalid]="form.get('nome')?.invalid && form.get('nome')?.touched" />
+
+      @if (form.get('nome')?.errors?.['required'] && form.get('nome')?.touched) {
+      <span class="error-message">O nome da receita é obrigatório.</span>
+      }
+      @if (form.get('nome')?.errors?.['minlength'] && form.get('nome')?.touched) {
+      <span class="error-message">O nome deve conter no mínimo 3 caracteres.</span>
+      }
+    </div>
+
+    <!-- Categoria -->
+    <div class="form-group">
+      <label for="categoria" class="form-label">Categoria <span class="form-required">*</span></label>
+      <select id="categoria" formControlName="categoria" class="form-select" required [class.is-invalid]="form.get('categoria')?.invalid && form.get('categoria')?.touched">
+        <option value="" disabled>Selecione uma categoria</option>
+        <option *ngFor="let cat of categorias" [value]="cat">
+          {{ cat }}
+        </option>
+      </select>
+
+      @if (form.get('categoria')?.errors?.['required'] && form.get('categoria')?.touched) {
+      <span class="error-message">A categoria é obrigatória.</span>
+      }
+    </div>
+
+    <!-- Tempo e Porções (grid 2 colunas) -->
+    <div class="form-row">
+      <div class="form-group">
+        <label for="tempoPreparo" class="form-label">Tempo de Preparo (min) <span class="form-required">*</span></label>
+        <input id="tempoPreparo" type="number" formControlName="tempoPreparo" placeholder="Ex: 30" class="form-input" [class.is-invalid]="form.get('tempoPreparo')?.invalid && form.get('tempoPreparo')?.touched" />
+
+        @if (form.get('tempoPreparo')?.errors?.['required'] && form.get('tempoPreparo')?.touched) {
+        <span class="error-message">O tempo de preparo é obrigatório.</span>
+        }
+        @if (form.get('tempoPreparo')?.errors?.['min'] && form.get('tempoPreparo')?.touched) {
+        <span class="error-message">O tempo de preparo deve ser um número positivo.</span>
+        }
+      </div>
+
+      <div class="form-group">
+        <label for="porcoes" class="form-label">Porções <span class="form-required">*</span></label>
+        <input id="porcoes" type="number" formControlName="porcoes" placeholder="Ex: 4" class="form-input" [class.is-invalid]="form.get('porcoes')?.invalid && form.get('porcoes')?.touched" />
+
+        @if (form.get('porcoes')?.errors?.['required'] && form.get('porcoes')?.touched) {
+        <span class="error-message">O número de porções é obrigatório.</span>
+        }
+        @if (form.get('porcoes')?.errors?.['min'] && form.get('porcoes')?.touched) {
+        <span class="error-message">O número de porções deve ser um número positivo.</span>
+        }
+      </div>
+    </div>
+
+    <!-- Ingredientes -->
+    <div class="form-group">
+      <div class="ingredientes-header">
+        <label class="form-label">Ingredientes <span class="form-required">*</span></label>
+        <button type="button" (click)="addIngrediente()" class="btn-tertiary">
+          <mat-icon>add</mat-icon>
+          Adicionar
+        </button>
+      </div>
+
+      <div formArrayName="ingredientes" class="ingredientes-list">
+        <div *ngFor="let ingrediente of ingredientes.controls; let i = index" [formGroupName]="i" class="ingrediente-item">
+          <input type="text" formControlName="ingrediente" placeholder="Ex: 2 xícaras de farinha de trigo" class="form-input" [class.is-invalid]="ingrediente.get('ingrediente')?.invalid && ingrediente.get('ingrediente')?.touched" />
+          <button *ngIf="ingredientes.length > 1" type="button" (click)="removeIngrediente(i)" class="btn-remove" aria-label="Remover ingrediente">
+            <mat-icon>close</mat-icon>
+          </button>
+
+          @if (ingrediente.get('ingrediente')?.errors?.['required'] && ingrediente.get('ingrediente')?.touched) {
+          <span class="error-message">O ingrediente é obrigatório.</span>
+          }
+        </div>
+      </div>
+    </div>
+
+    <!-- Modo de Preparo -->
+    <div class="form-group">
+      <label for="modoPreparo" class="form-label">Modo de Preparo <span class="form-required">*</span></label>
+      <textarea id="modoPreparo" formControlName="modoPreparo" placeholder="Descreva o passo a passo do preparo..." class="form-textarea" [class.is-invalid]="form.get('modoPreparo')?.invalid && form.get('modoPreparo')?.touched" rows="6"></textarea>
+
+      @if (form.get('modoPreparo')?.errors?.['required'] && form.get('modoPreparo')?.touched) {
+      <span class="error-message">O modo de preparo é obrigatório.</span>
+      }
+      @if (form.get('modoPreparo')?.errors?.['minlength'] && form.get('modoPreparo')?.touched) {
+      <span class="error-message">O modo de preparo deve conter no mínimo 10 caracteres.</span>
+      }
+    </div>
+
+    <!-- Botões de Ação -->
+    <div class="form-actions">
+      <a routerLink="/" class="btn-secondary">
+        <mat-icon>close</mat-icon>
+        Cancelar
+      </a>
+      <button type="submit" class="btn-primary" [disabled]="form.invalid || isSubmitting">
+        <mat-icon>check</mat-icon>
+        {{ isSubmitting ? 'Salvando...' : 'Salvar Receita' }}
+      </button>
+    </div>
+
+  </form>
+
+</div>

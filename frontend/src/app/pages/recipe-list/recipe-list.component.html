@@ -1,0 +1,102 @@
+<div class="main-container">
+
+  <div class="toolbar-end">
+    <a routerLink="/criar" class="btn-primary">
+      <mat-icon>add</mat-icon>
+      Nova Receita
+    </a>
+  </div>
+
+  <header class="hero-section">
+    <div class="hero-content">
+
+      <div class="hero-text">
+        <h1 class="hero-title">Livro de <span>Receitas</span></h1>
+        <p class="hero-subtitle">Organize, busque e descubra suas receitas.</p>
+      </div>
+
+      <div class="search-block">
+        <label for="input-primary" class="search-label">O que vamos cozinhar hoje?</label>
+        <div class="search-container">
+          <input id="form-input" type="text" placeholder="Buscar pelo nome da receita..." [(ngModel)]="termoBusca" class="form-input" autocomplete="off" />
+          @if (termoBusca) {
+          <button class="clear-btn" (click)="termoBusca = ''" aria-label="Limpar busca">
+            <mat-icon>close</mat-icon>
+          </button>
+          }
+        </div>
+      </div>
+
+    </div>
+  </header>
+
+  @if (receitasFiltradas.length === 0 && !termoBusca) {
+  <div class="empty-state">
+    <mat-icon class="empty-icon">library_books</mat-icon>
+    <p class="empty-title">Nenhuma receita ainda</p>
+    <p class="empty-desc">Seu livro de receitas está em branco.<br>Que tal adicionar a primeira?</p>
+    <button class="btn-primary">
+      <mat-icon>add</mat-icon>
+      Criar primeira receita
+    </button>
+  </div>
+  }
+
+  @if (receitasFiltradas.length === 0 && termoBusca) {
+  <div class="empty-state">
+    <mat-icon class="empty-icon">search</mat-icon>
+    <p class="empty-title">Nenhum resultado</p>
+    <p class="empty-desc">
+      Não encontramos receitas com <strong>"{{ termoBusca }}"</strong>.<br>
+      Tente outro nome ou confira a ortografia.
+    </p>
+  </div>
+  }
+
+  @if (receitasFiltradas.length > 0) {
+  <div class="recipe-grid">
+    @for (recipe of receitasFiltradas; track recipe.id) {
+
+    <div class="recipe-card">
+
+      <!-- Bookmark lateral colorido por categoria -->
+      <div class="card-bookmark" [className]="'card-bookmark ' + recipe.categoria.toLowerCase()">
+        <span class="bookmark-text">{{ recipe.categoria }}</span>
+      </div>
+
+      <!-- Conteúdo principal -->
+      <div class="card-content">
+        <h2 class="card-title">{{ recipe.nome }}</h2>
+
+        <div class="card-footer-row">
+
+          <div class="card-metadata">
+            <span class="meta-item">
+              <mat-icon>schedule</mat-icon>
+              {{ recipe.tempoPreparo }} min
+            </span>
+
+            <!-- Divisor visual -->
+            <span class="meta-divider" aria-hidden="true"></span>
+
+            <span class="meta-item">
+              <mat-icon>people</mat-icon>
+              {{ recipe.porcoes }} porções
+            </span>
+          </div>
+
+          <a [routerLink]="['/receita', recipe.id]" class="btn-tertiary" [attr.aria-label]="'Ver detalhes de ' + recipe.nome">
+            Ver detalhes
+            <mat-icon>arrow_forward</mat-icon>
+          </a>
+
+        </div>
+      </div>
+
+    </div>
+
+    }
+  </div>
+  }
+
+</div>
