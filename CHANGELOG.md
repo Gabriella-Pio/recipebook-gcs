@@ -3,6 +3,13 @@
 Todas as mudanças notáveis neste projeto serão documentadas aqui.
 Formato: https://keepachangelog.com
 
+## [1.0.1] - 2026-05-17
+
+### Fixed
+
+- Corrigida validação do campo Porções: valor 0 agora é corretamente rejeitado (#13)
+- Botão Salvar permanece desabilitado quando porcoes <= 0
+
 ## [1.0.0] - 2026-05-16
 
 ### Added
